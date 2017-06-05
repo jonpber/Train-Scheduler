@@ -49,10 +49,10 @@
 						<input type="input" name="destination"><br><br>
 
 						<label>First Train Time (HH:MM - Military Time)</label><br>
-						<input type="number" name="firstTime" min="0000" max="1159"><br><br>
+						<input type="text" pattern="[0-9]" name="firstTime" maxlength=5><br><br>
 
 						<label>Frequency (min)</label><br>
-						<input type="number" name="frequency" min="0" max="180"><br><br>
+						<input type="text" pattern="[0-9]"" name="frequency" maxlength="3"><br><br>
 
 						<input type="submit" name="submit"><br>
 					</form>

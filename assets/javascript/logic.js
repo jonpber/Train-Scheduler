@@ -37,7 +37,6 @@ $(function(){
 					destination: destination,
 					firstTime: firstTime,
 					frequency: frequency,
-					minAway: 1000
 				});
 			});
 		}
@@ -48,8 +47,8 @@ $(function(){
 
 	});
 
-
-	database.ref("Trains").on("value", function(snapshot){
+	function updateBoard(){
+		database.ref("Trains").once("value").then(function(snapshot){
 		$("td").parent().remove();
 		if (snapshot.val() !== null){
 			var tempArray = Object.keys(snapshot.val());
@@ -58,14 +57,30 @@ $(function(){
 				var tempTR = $("<tr>");
 				tempTR.append("<td>" + snapshot.child(tempArray[i] + "/name").val() + "</td>");
 				tempTR.append("<td>" + snapshot.child(tempArray[i] + "/destination").val() + "</td>");
-				tempTR.append("<td>" + snapshot.child(tempArray[i] + "/firstTime").val() + "</td>");
+				// tempTR.append("<td>" + snapshot.child(tempArray[i] + "/firstTime").val() + "</td>");
 				tempTR.append("<td>" + snapshot.child(tempArray[i] + "/frequency").val() + "</td>");
-				tempTR.append("<td>" + snapshot.child(tempArray[i] + "/minAway").val() + "</td>");
+
+				var startTime = moment(snapshot.child(tempArray[i] + "/firstTime").val(), 'HH:mm');
+				var endTime = moment().local();
+				// console.log(startTime);
+				// console.log(endTime);
+				
+				var duration = endTime.diff(startTime, "minutes");
+
+				var timeLeft = snapshot.child(tempArray[i] + "/frequency").val() - (duration % snapshot.child(tempArray[i] + "/frequency").val());
+
+				var nextTime = endTime.add(timeLeft, "minutes").format("HH:mm");
+				tempTR.append("<td>" + nextTime + "</td>");
+				tempTR.append("<td>" + timeLeft + "</td>");
 				$("table").append(tempTR);
 			}
 
 		}
 	});
-		
+	}
+
+	updateBoard();
+	setInterval(updateBoard, 60000);
+	
 
 });
