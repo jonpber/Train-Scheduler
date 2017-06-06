@@ -22,7 +22,7 @@ body {
 .header {
 	margin-top: 35px;
 	height: 50px;
-	background-color: #404864;;
+	background-color: #404864;
 	border-radius: 15px 15px 0 0;
 	border-top: 2px solid #161a28;
 	border-left: 2px solid #161a28;
@@ -30,8 +30,17 @@ body {
 	border-bottom: 1px solid #161a28;
 }
 
+h2, th, label {
+	font-family: 'noyhgeometric-heavy';
+}
+
+th, label {
+	font-size: 20px;
+}
+
 h2 {
-	margin-top: 7.5px;
+	margin-top: 3px;
+	font-size: 40px;
 	color: white;
 }
 
@@ -55,4 +64,12 @@ th, td {
 
 .backgroundSquare, .addTrainSquare, .header{
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.51);
+}
+
+@font-face {
+    font-family: 'noyhgeometric-heavy';
+    src: url('../fonts/noyhgeometric-heavy-webfont.woff2') format('woff2'),
+         url('../fonts/noyhgeometric-heavy-webfont') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
