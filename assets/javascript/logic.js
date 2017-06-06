@@ -24,11 +24,14 @@ $(function(){
 		setInterval(updateBoard, 60000);
 	    // ...
 	  }
+
+	  else {
+	  	$(".signInBlock").css("display", "block");
+	  }
 		  // The signed-in user info.
 		  var user = result.user;
 		}).catch(function(error) {
 		  // Handle Errors here.
-		  $(".signInBlock").css("display", "block");
 		  var errorCode = error.code;
 		  var errorMessage = error.message;
 		  // The email of the user's account used.
