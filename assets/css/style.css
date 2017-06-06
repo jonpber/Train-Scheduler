@@ -30,6 +30,15 @@ body {
 	border-bottom: 1px solid #161a28;
 }
 
+.mainContent, .signInBlock {
+	display: none;
+}
+
+.signInBlock {
+	width: 50%;
+	margin: auto;
+}
+
 h2, th, label {
 	font-family: 'noyhgeometric-heavy';
 }
