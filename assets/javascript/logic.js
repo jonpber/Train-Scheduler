@@ -12,43 +12,26 @@ $(function(){
 
 	var database = firebase.database();
 
-	var provider = new firebase.auth.GoogleAuthProvider();
+	var googleProvider = new firebase.auth.GoogleAuthProvider();
+	var gitHubProvider = new firebase.auth.GithubAuthProvider();
 
 	firebase.auth().onAuthStateChanged(function(user) {
 		  if (user) {
 		    $(".mainContent").css("display", "block");
+		    	updateBoard();
+				setInterval(updateBoard, 60000);
 		  } else {
 		   $(".signInBlock").css("display", "block");
 		  }
 		});
 
 	$(".googleButton").on("click", function(){
-		firebase.auth().signInWithRedirect(provider);
+		firebase.auth().signInWithRedirect(googleProvider);
 	});
 
-
-
-	// firebase.auth().signInWithRedirect(provider);
-
-	// firebase.auth().getRedirectResult().then(
-	// 	function(result) {
- // 			if (result.credential) {
-	// 		    // This gives you a Google Access Token. You can use it to access the Google API.
-	// 		    var token = result.credential.accessToken;
-	// 		    // ...
-	// 		 }
-	// 			  // The signed-in user info.
-	// 	  	var user = result.user;
-	// 			}).catch(function(error) {
-	// 			  // Handle Errors here.
-	// 			  var errorCode = error.code;
-	// 			  var errorMessage = error.message;
-	// 			  // The email of the user's account used.
-	// 			  var email = error.email;
-	// 			  // The firebase.auth.AuthCredential type that was used.
-	// 			  var credential = error.credential;
-	// 			  // ...
-	// 			});
+	$(".gitHubButton").on("click", function(){
+		firebase.auth().signInWithRedirect(gitHubProvider);
+	});
 
 
 
@@ -122,8 +105,7 @@ $(function(){
 		});
 	}
 
-	updateBoard();
-	setInterval(updateBoard, 60000);
+
 	
 
 });
