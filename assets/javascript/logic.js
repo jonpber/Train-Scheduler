@@ -16,23 +16,26 @@ $(function(){
 	var gitHubProvider = new firebase.auth.GithubAuthProvider();
 
 	firebase.auth().onAuthStateChanged(function(user) {
-		  if (user) {
-		    $(".submitBlock").css("display", "block");
-		    	updateBoard();
-				setInterval(updateBoard, 60000);
-		  } else {
-		   $(".signInBlock").css("display", "block");
-		  }
-		});
+		if (user) {
+			$(".submitBlock").css("display", "block");
+			updateBoard();
+			setInterval(updateBoard, 60000);
+		} else {
+			$(".signInBlock").css("display", "block");
+			}
+	});
 
 	$("body").on("click", ".googleButton", function(){
 		firebase.auth().signInWithRedirect(googleProvider);
 	});
 
-	// $(".gitHubButton").on("click", function(){
-	// 	firebase.auth().signInWithRedirect(gitHubProvider);
-	// });
-
+	$("body").on("click", ".logOut", function(){
+		firebase.auth().signOut().then(function() {
+			location.reload();
+		}).catch(function(error) {
+			// An error happened.
+		});
+	})
 
 
 	$("input[type='submit']").on("click", function(event){
