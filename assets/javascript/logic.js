@@ -17,7 +17,7 @@ $(function(){
 
 	firebase.auth().onAuthStateChanged(function(user) {
 		  if (user) {
-		    $(".mainContent").css("display", "block");
+		    $(".submitBlock").css("display", "block");
 		    	updateBoard();
 				setInterval(updateBoard, 60000);
 		  } else {
@@ -104,8 +104,5 @@ $(function(){
 			}
 		});
 	}
-
-
-	
 
 });
