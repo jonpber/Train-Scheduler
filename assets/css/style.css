@@ -19,6 +19,10 @@ body {
 	padding: 15px;
 }
 
+.submitBlock {
+	display: none;
+}
+
 .header {
 	margin-top: 35px;
 	height: 50px;
@@ -28,15 +32,6 @@ body {
 	border-left: 2px solid #161a28;
 	border-right: 2px solid #161a28;
 	border-bottom: 1px solid #161a28;
-}
-
-.mainContent, .signInBlock {
-	display: none;
-}
-
-.signInBlock {
-	width: 50%;
-	margin: auto;
 }
 
 h2, th, label {
