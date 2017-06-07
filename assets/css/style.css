@@ -19,7 +19,7 @@ body {
 	padding: 15px;
 }
 
-.submitBlock {
+.submitBlock, .signInBlock {
 	display: none;
 }
 
