@@ -31,7 +31,8 @@ $(function(){
 
 	$("body").on("click", ".logOut", function(){
 		firebase.auth().signOut().then(function() {
-			location.reload();
+			console.log('logged out');
+			// location.reload();
 		}).catch(function(error) {
 			// An error happened.
 		});
@@ -51,7 +52,7 @@ $(function(){
 		var allFilled = true;
 
 		for (var i = 0; i < 4; i++){
-			if (inputArray[i] === undefined){
+			if (inputArray[i] === undefined || inputArray[i] === ""){
 				allFilled = false;
 			}
 		}
