@@ -15,10 +15,11 @@ $(function(){
 	var googleProvider = new firebase.auth.GoogleAuthProvider();
 	var gitHubProvider = new firebase.auth.GithubAuthProvider();
 
+	updateBoard();
+
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			$(".submitBlock").css("display", "block");
-			updateBoard();
 			setInterval(updateBoard, 60000);
 		} else {
 			$(".signInBlock").css("display", "block");
@@ -26,6 +27,7 @@ $(function(){
 	});
 
 	$("body").on("click", ".googleButton", function(){
+		alert("clickworks");
 		firebase.auth().signInWithRedirect(googleProvider);
 	});
 
