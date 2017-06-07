@@ -25,13 +25,13 @@ $(function(){
 		  }
 		});
 
-	$(".googleButton").on("click", function(){
+	$("body").on("click", ".googleButton", function(){
 		firebase.auth().signInWithRedirect(googleProvider);
 	});
 
-	$(".gitHubButton").on("click", function(){
-		firebase.auth().signInWithRedirect(gitHubProvider);
-	});
+	// $(".gitHubButton").on("click", function(){
+	// 	firebase.auth().signInWithRedirect(gitHubProvider);
+	// });
 
 
 
