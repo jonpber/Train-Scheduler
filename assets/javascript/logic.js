@@ -13,18 +13,17 @@ $(function(){
 	var database = firebase.database();
 
 	var googleProvider = new firebase.auth.GoogleAuthProvider();
-	var gitHubProvider = new firebase.auth.GithubAuthProvider();
 
 	updateBoard();
 
-	firebase.auth().onAuthStateChanged(function(user) {
-		if (user) {
-			$(".submitBlock").css("display", "block");
-			setInterval(updateBoard, 60000);
-		} else {
-			$(".signInBlock").css("display", "block");
-			}
-	});
+	// firebase.auth().onAuthStateChanged(function(user) {
+	// 	if (user) {
+	// 		$(".submitBlock").css("display", "block");
+	// 		setInterval(updateBoard, 60000);
+	// 	} else {
+	// 		$(".signInBlock").css("display", "block");
+	// 		}
+	// });
 
 	$("body").on("click", ".googleButton", function(){
 		alert("clickworks");
