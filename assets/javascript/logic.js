@@ -12,33 +12,7 @@ $(function(){
 
 	var database = firebase.database();
 
-	var googleProvider = new firebase.auth.GoogleAuthProvider();
-
 	updateBoard();
-
-	// firebase.auth().onAuthStateChanged(function(user) {
-	// 	if (user) {
-	// 		$(".submitBlock").css("display", "block");
-	// 		setInterval(updateBoard, 60000);
-	// 	} else {
-	// 		$(".signInBlock").css("display", "block");
-	// 		}
-	// });
-
-	$("body").on("click", ".googleButton", function(){
-		alert("clickworks");
-		firebase.auth().signInWithRedirect(googleProvider);
-	});
-
-	$("body").on("click", ".logOut", function(){
-		firebase.auth().signOut().then(function() {
-			console.log('logged out');
-			// location.reload();
-		}).catch(function(error) {
-			// An error happened.
-		});
-	})
-
 
 	$("input[type='submit']").on("click", function(event){
 		event.preventDefault();
@@ -59,6 +33,7 @@ $(function(){
 		}
 
 		if (allFilled){
+			$(".errorMessage").hide();
 			database.ref("Trains").once("value").then(function(snapshot){
 				database.ref("Trains/" + trainName).set({
 					name: trainName,
@@ -73,7 +48,7 @@ $(function(){
 		}
 
 		else {
-			console.log("an entry is not filled");
+			$(".errorMessage").show();
 		}
 
 	});
