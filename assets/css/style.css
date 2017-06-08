@@ -9,7 +9,7 @@ body {
 }
 
 .backgroundSquare {
-	min-height: 600px;
+	min-height: 450px;
 	max-height: 800px;
 	padding: 15px;
 }
@@ -17,6 +17,16 @@ body {
 .addTrainSquare {
 	min-height: 350px;
 	padding: 15px;
+}
+
+input[type='submit'] {
+	background-color: #404864;
+	color: white;
+	border-radius: 16px;
+	border: none;
+	padding: 5px 11px;
+	font-family: 'noyhgeometric-heavy';
+	font-size: 21px;
 }
 
 
@@ -31,7 +41,7 @@ body {
 	border-bottom: 1px solid #161a28;
 }
 
-h2, th, label {
+h2, th, label, h3 {
 	font-family: 'noyhgeometric-heavy';
 }
 
@@ -43,6 +53,20 @@ h2 {
 	margin-top: 3px;
 	font-size: 40px;
 	color: white;
+}
+
+h3 {
+	font-size: 20px;
+	margin-top: 0;
+	color: red;
+}
+
+.errorMessage {
+	display: none;
+}
+
+input {
+	border: 1px solid #8d95b1;
 }
 
 table {
@@ -64,7 +88,7 @@ th, td {
 }
 
 .backgroundSquare, .addTrainSquare, .header{
-	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.51);
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.71);
 }
 
 @font-face {
