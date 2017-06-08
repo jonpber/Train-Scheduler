@@ -14,6 +14,8 @@ $(function(){
 
 	updateBoard();
 
+	$("input[type='frequency']").numeric();
+	
 	$("input[type='submit']").on("click", function(event){
 		event.preventDefault();
 
@@ -30,10 +32,21 @@ $(function(){
 			if (inputArray[i] === undefined || inputArray[i] === ""){
 				allFilled = false;
 			}
+
+			var timeTest = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
+		}
+
+		if (!timeTest.test(inputArray[2])){
+				allFilled = false;
 		}
 
 		if (allFilled){
+			$("input[name='trainName']").val("");
+			$("input[name='destination']").val("");
+			$("input[name='firstTime']").val("");
+			$("input[name='frequency']").val("");
 			$(".errorMessage").hide();
+			$(".timeError").hide();
 			database.ref("Trains").once("value").then(function(snapshot){
 				database.ref("Trains/" + trainName).set({
 					name: trainName,
@@ -43,8 +56,6 @@ $(function(){
 				});
 				updateBoard();
 			});
-
-
 		}
 
 		else {
@@ -52,6 +63,7 @@ $(function(){
 		}
 
 	});
+
 
 	function updateBoard(){
 		database.ref("Trains").once("value").then(function(snapshot){
