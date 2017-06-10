@@ -14,22 +14,16 @@
 <body>
 
 	<div class="container">
-<!-- 		<div class="signInBlock">
+		<div class="mainContent">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="header text-center">
-						<h2>Train Scheduler</h2>
-					</div>
-					<div class="backgroundSquare">
-						<h3>Please Sign-in</h3>
-						<button class="googleButton">Google</button>
-						<button class="gitHubButton">Github</button>
+					<div class="headerDiv">
+						<h1>Timely Train Tracker</h1>
 					</div>
 				</div>
+				
 			</div>
-		</div> -->
 
-		<div class="mainContent">
 			<div class="row">
 				<div class="col-xs-12 col-md-8">
 					<div class="header text-center">
@@ -43,6 +37,7 @@
 								<th>Frequency (min)</th>
 								<th>Next Arrival</th>
 								<th>Minutes Away</th>
+								<th>Remove</th>
 							</tr>
 
 							<!-- <span class="scheduleTrains">
@@ -65,11 +60,11 @@
 							<label>Destination</label><br>
 							<input type="input" name="destination"><br><br>
 
-							<label>First Train Time (HH:MM - Military Time)</label><br>
-							<input type="text" pattern="[0-9]" name="firstTime" maxlength=5><br><br>
+							<label class="timeLabel">First Train Time (HH:MM - Military Time)</label><br>
+							<input type=text name="firstTime"><br><br>
 
 							<label>Frequency (min)</label><br>
-							<input type="text" pattern="[0-9]"" name="frequency" maxlength="3"><br><br>
+							<input type="number" name="frequency" maxlength="3"><br><br>
 
 							<div class="submitBlock">
 								<input type="submit" name="submit"><br>

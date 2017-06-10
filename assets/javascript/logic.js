@@ -11,9 +11,7 @@ $(function(){
 	firebase.initializeApp(config);
 
 	var database = firebase.database();
-
-	updateBoard();
-
+	
 	$("input[type='submit']").on("click", function(event){
 		event.preventDefault();
 
@@ -22,29 +20,28 @@ $(function(){
 		firstTime = $("input[name='firstTime']").val();
 		frequency = $("input[name='frequency']").val();
 
-		var inputArray = [trainName, destination, firstTime, frequency];
-
-		var allFilled = true;
-
-		for (var i = 0; i < 4; i++){
-			if (inputArray[i] === undefined || inputArray[i] === ""){
-				allFilled = false;
-			}
+		var numOkay = true;
+		
+		var timeTest = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+		if (!timeTest.test(firstTime)){
+			$(".timeLabel").css("color", "red");
+			numOkay = false;
 		}
 
-		if (allFilled){
+		if (trainName && destination && firstTime && frequency && numOkay){
+			$(".timeLabel").css("color", "black");
+			$("input[name='trainName']").val("");
+			$("input[name='destination']").val("");
+			$("input[name='firstTime']").val("");
+			$("input[name='frequency']").val("");
 			$(".errorMessage").hide();
-			database.ref("Trains").once("value").then(function(snapshot){
-				database.ref("Trains/" + trainName).set({
-					name: trainName,
-					destination: destination,
-					firstTime: firstTime,
-					frequency: frequency,
-				});
-				updateBoard();
-			});
-
-
+			$(".timeError").hide();
+			database.ref("Trains").push({
+				name: trainName,
+				destination: destination,
+				firstTime: firstTime,
+				frequency: frequency,
+			})
 		}
 
 		else {
@@ -53,36 +50,35 @@ $(function(){
 
 	});
 
-	function updateBoard(){
-		database.ref("Trains").once("value").then(function(snapshot){
-			$("td").parent().remove();
-			if (snapshot.val() !== null){
-				var tempArray = Object.keys(snapshot.val());
+	database.ref("Trains").on("child_added", function(snapshot){
+		var tempTR = $("<tr>");
+		tempTR.append("<td>" + snapshot.val().name + "</td>");
+		tempTR.append("<td>" + snapshot.val().destination + "</td>");
+		tempTR.append("<td>" + snapshot.val().frequency + "</td>");
 
-				for (var i = 0; i < tempArray.length; i++){
-					var tempTR = $("<tr>");
-					tempTR.append("<td>" + snapshot.child(tempArray[i] + "/name").val() + "</td>");
-					tempTR.append("<td>" + snapshot.child(tempArray[i] + "/destination").val() + "</td>");
-					// tempTR.append("<td>" + snapshot.child(tempArray[i] + "/firstTime").val() + "</td>");
-					tempTR.append("<td>" + snapshot.child(tempArray[i] + "/frequency").val() + "</td>");
+		var startTime = moment(snapshot.val().firstTime, 'HH:mm');
 
-					var startTime = moment(snapshot.child(tempArray[i] + "/firstTime").val(), 'HH:mm');
-					var endTime = moment().local();
-					// console.log(startTime);
-					// console.log(endTime);
-					
-					var duration = endTime.diff(startTime, "minutes");
+		
+		var duration = moment().diff(startTime, "minutes");
 
-					var timeLeft = snapshot.child(tempArray[i] + "/frequency").val() - (duration % snapshot.child(tempArray[i] + "/frequency").val());
+		var timeLeft = snapshot.val().frequency - (duration % snapshot.val().frequency);
 
-					var nextTime = endTime.add(timeLeft, "minutes").format("HH:mm");
-					tempTR.append("<td>" + nextTime + "</td>");
-					tempTR.append("<td>" + timeLeft + "</td>");
-					$("table").append(tempTR);
-				}
+		var nextTime = moment().add(timeLeft, "minutes").format("HH:mm");
+		tempTR.append("<td>" + nextTime + "</td>");
+		tempTR.append("<td>" + timeLeft + "</td>");
 
-			}
-		});
-	}
+		// var button = $("<button>").attr("data-key", snapshot.key).text("X");
+		// console.log(button);
+		tempTR.append("<td><button data-key=" + snapshot.key + ">X</button></td>");
+		$("table").append(tempTR);
+	})
+
+	database.ref("Trains").on("child_removed", function(snapshot){
+		$("button[data-key=" + snapshot.key + "]").closest("tr").remove();
+	})
+
+	$("body").on("click", "button", function(){
+		database.ref().child("Trains/" + $(this).attr("data-key")).remove();
+	})
 
 });
