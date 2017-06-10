@@ -19,6 +19,13 @@ body {
 	padding: 15px;
 }
 
+button {
+	background: #404864;
+	color: white;
+	border: none;
+	border-radius: 15px;
+}
+
 input[type='submit'] {
 	background-color: #404864;
 	color: white;
